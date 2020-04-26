@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="../static/main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <div class="frame">
+        <div class="center">
+            <div class="title">
+                <h1>Drop file to upload</h1>
+            </div>
+    
+            <div class="dropzone">
+                <form action="{{url_for("index")}}" method="POST" enctype="multipart/form-data">
+                    <img src="/static/img/upload.svg" class="upload-icon" />
+                    <input type="file" name="img"  />   
+                    <button type="submit" class="btn" >Upload </button>
+                </form>
+            </div>
+    
+            
+    
+        </div>
+    </div>
+   
+</body>
+</html>
