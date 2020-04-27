@@ -4,6 +4,7 @@
 
 Numerous scientific papers, historical documentaries/artifacts, recipes, books are stored as papers be it handwritten/typewritten. With time, the paper/notes tend to accumulate noise/dirt through fingerprints, weakening of paper fibers, dirt, coffee/tea stains, abrasions, wrinkling, etc. There are several surface cleaning methods used for both preserving and cleaning, but they have certain limits, the major one being: that the original document might get altered during the process. The purpose of this project is to do a comparative study of traditional computer vision techniques vs deep learning networks when denoising dirty documents.
 
+
 ## Autoencoder architecture
 
 ![Autoencoder architecture](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/Autoencoder.png)
@@ -18,7 +19,6 @@ The encoder uses **max-pooling** for compression. A sliding filter runs over the
 
 ![AWS Architecture](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/CV-architecture.png)
 
-
 ## Analysis Approach
 
 1. Use **median filter** to get a “background” of the image, with the text being “foreground” (due to the fact that the noise takes more space than the text in large localities). Next subtract this “background” from the original image.<br>
@@ -30,6 +30,30 @@ The encoder uses **max-pooling** for compression. A sliding filter runs over the
   * The decoder uses up-sampling to restore the image to its original dimensions, by simply repeating the rows and columns of the layer input before feeding it to a convolutional layer.
   * Perform batch-normalization as required. For the output, we use sigmoid activation to predict pixel intensities between 0 and 1.
 5. Compare results from {1, 2, 3, 4} using the following metrics: **RMSE, PSNR, SSIM, UQI**
+
+## Results:
+
+### Median Filtering
+|||||
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![Clean](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/median-results/clean.png)  |  ![Dirty](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/median-results/dirty.png)  |  ![Background](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/median-results/background.png)  |  ![Final](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/median-results/final-result.png)
+
+### Adaptive Thresholding
+
+||||
+:-------------------------:|:-------------------------:|:-------------------------:
+![Results](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/adaptive-results/after-ad-th.png)  |  ![Clean](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/adaptive-results/clean.png)  |  ![Dirty](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/adaptive-results/dirty.png)
+
+### Canny Edge Detection
+||||||
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![After](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/edge-detection-results/after-edge-detection.png)  |  ![Clean](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/edge-detection-results/clean.png)  |  ![Dilation](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/edge-detection-results/dilation.png)  |  ![Dirty](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/edge-detection-results/dirty.png)  |  ![Erosion](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/edge-detection-results/final-result-erosion.png)
+
+### Autoencoder
+
+|||
+:-------------------------:|:-------------------------:
+![Noisy](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/autoencoder-results/noisy.png)  |  ![Trained-Clean](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/autoencoder-results/trained-cleaned.png)
 
 ## Data:
 
