@@ -1,32 +1,42 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="../static/main.css" />
-    <script src="main.js"></script>
+    <link href="static/style.css" rel="stylesheet" type="text/css" media="all">
 </head>
-<body>
-    <div class="frame">
-        <div class="center">
-            <div class="title">
-                <h1>Drop file to upload</h1>
-            </div>
-    
-            <div class="dropzone">
-                <form action="{{url_for("index")}}" method="POST" enctype="multipart/form-data">
-                    <img src="/static/img/upload.svg" class="upload-icon" />
-                    <input type="file" name="img"  />   
-                    <button type="submit" class="btn" >Upload </button>
-                </form>
-            </div>
-    
-            
-    
-        </div>
+<style>
+  body {
+    background-image: url('../static/img/login-bulb.jpg');
+    background-size: 1350px 850px;
+  }
+  </style>
+    <body>
+      <!-- <h1 style="text-align:center;">Docs Denoiser</h1> -->
+    	<div class="container">
+        <form id="contact" action="/" method="post">
+          <h1>Noisy Docs Denoiser</h1>
+  			  <h4>Login to see the magic unfold!</h4>
+          <fieldset>
+            <input type="text" name="username" id="username" placeholder="Username" required/>
+          </fieldset>
+          <fieldset>
+            <input type="text" name="password" id="password" placeholder="Password" required/>
+          </fieldset>
+          <fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Reparo</button>
+          </fieldset>
+  			</form>
     </div>
-   
+    
+    {%if users%}
+    <div class="users" style="margin-left:20%">
+      <h2>Registered Users List</h2>
+      <table style="width:100%;">
+        {%for user in users%}
+          <tr>
+            <td>{{user[0]}}</td>
+          </tr>   
+        {%endfor%}
+      </table>
+    </div>
+    {%endif%}
 </body>
 </html>
