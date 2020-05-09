@@ -55,6 +55,12 @@ The encoder uses **max-pooling** for compression. A sliding filter runs over the
 :-------------------------:|:-------------------------:
 ![Noisy](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/autoencoder-results/noisy.png)  |  ![Trained-Clean](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/autoencoder-results/trained-cleaned.png)
 
+## Screens
+
+#### Login Screen
+
+![login-1](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/login.png)
+
 ## Data:
 
 Our data is collected from UCI's machine learning repository. The dataset comprises of train and test images of Noisy documents which contain noise from various sources like accidental spills, creases, ink spots and so on. 
