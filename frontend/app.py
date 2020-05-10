@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 from config import ACCESS_KEY,SECRET_KEY
 import boto3
 # from werkzeug import secure_filename
@@ -17,7 +17,7 @@ s3 = boto3.client(
 bucket_resource = s3
 
 @app.route("/", methods=['post', 'get'])
-def index():
+def uploader():
     if request.method == "POST":
         try:
             img = request.files['img']
@@ -30,10 +30,11 @@ def index():
                     Filename=filename,
                     Key=filename
                 )
-                return("<h1>upload successful<h1>")
+                # return("<h1>upload successful<h1>")
+                flash('Upload Successful!')
         except Exception as e:
             return (str(e))
-    return render_template("index.html")
+    return render_template("upload.html")
 
 
 if __name__ == '__main__':

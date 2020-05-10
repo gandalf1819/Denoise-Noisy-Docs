@@ -5,21 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="../static/style.css" />
-    <script src="main.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="../static/style.css" /> -->
+    <link href="static/style.css" rel="stylesheet" type="text/css" media="all">
+    <!-- Toastr headers  -->
+    {{ toastr.include_jquery() }}
+    {{ toastr.include_toastr_css() }}
+    {{ toastr.message() }}
 </head>
+<style>
+    body {
+        background: #4CAF50;
+    }
+    </style>
 <body>
+    {{ toastr.include_toastr_js() }}
     <div class="frame">
         <div class="center">
-            <div class="title">
-                <h1>Upload the image for denoising!</h1>
-            </div>
     
-            <div class="dropzone">
-                <form action="{{url_for("index")}}" method="POST" enctype="multipart/form-data">
-                    <!-- <img src="/static/img/upload.svg" class="upload-icon" /> -->
-                    <input type="file" name="img"  />   
-                    <button type="submit" class="btn" >Upload </button>
+            <div class="container">
+                <!-- Upload image-->
+                <form action="{{url_for("uploader")}}" method="POST" id="contact" enctype="multipart/form-data">
+                    <h1>Upload the image for denoising</h1>
+                    
+                    <input type="file" name="img" class="btn" />   
+                    <button type="submit" class="btn" id="contact-submit">Upload </button>
+                </form>
+
+                <!-- Drop-down for algorithms -->
+                <form action="{{url_for("uploader")}}" method="POST" id="contact" enctype="multipart/form-data">
+                    <h1>Denoising Technique</h1>
+                <label for="algos">Technique:</label>
+                    <select id="algos" name="algos">
+                        <option value="mf">Median Filtering</option>
+                        <option value="ed">Edge Detection</option>
+                        <option value="at">Adaptive Thresholding</option>
+                        <option value="ae">Autoencoder</option>
+                    </select>
+                    <button type="submit" class="btn" id="contact-submit">Reparo </button>
                 </form>
             </div>
         </div>
