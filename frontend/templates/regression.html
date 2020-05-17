@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Denoizer | Regression</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="../static/style.css" /> -->
     <link href="static/style.css" rel="stylesheet" type="text/css" media="all">
@@ -52,8 +52,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#"><h6 small>Home</h6 small><span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="#"><h6>Home</h6></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#"><h6>Median Filtering</h6></a>
@@ -65,7 +64,9 @@
                 <a class="nav-link" href="#"><h6>Adaptive Thresholding</h6></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><h6>Autoencoder</h6></a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><h6>Regression</h6><span class="sr-only">(current)</span></a>
+                </li>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#"></a>
@@ -77,32 +78,36 @@
         </div>
     </nav>
 
-    <!-- Main Body -->
+    <!-- Main Body for Regression -->
     <div class="frame">
-        <div class="center">
-    
+        <div class="center">                
+            
+            <!-- Regression -->
+            <p class="tab"><h4><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Regression</b></h4></p>
+            <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Instead of modelling the entire image at once, we tried predicting the cleaned-up intensity for each pixel within the image, <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; and constructed a cleaned image by combining together a set of predicted pixel intensities using linear regression. <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- After creating a vector of y values, and a matrix of x values, the simplest data set is where the x values are just the pixel intensities<br> 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; of the dirty image <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- RMSE, UQI & PSNR were 34, 87 & 21 respectively
+                </h5></p>
+
+
             <div class="container">
                 <!-- Upload image-->
-                <form action="{{url_for("uploader")}}" method="POST" id="contact" enctype="multipart/form-data">
-                    <h5><b>Upload the image for denoising</b></h5>
-                    <h4>Get the cleaned version of your doc in no time!</h4>
+                <form action="{{url_for("regression")}}" method="POST" id="contact" enctype="multipart/form-data" width="600px" height="1000px">
+                    <h5><b>Supervised Learning</b></h5>
+                    <h6 small><b>Regression:</b></h6 small>
+                    <!-- Input image for regression -->
+                    <h6>Select input image:</h6><br>
+                    <input type="file" name="img" class="btn" /><br>   
+                    <button type="submit" class="btn btn-primary btn-xs" id="contact-submit">Upload </button>
+                    <br>
+                    <!-- Display result -->
+                    <h6>Cleaned Image</h6>
+                    <!-- <img src="{{ user_image }}" alt="User Image"> -->
                     
-                    <input type="file" name="img" class="btn" />   
-                    <button type="submit" class="btn" id="contact-submit">Upload </button>
+                    <button type="submit" class="btn" id="contact-submit" onclick="runTest()">View </button>
                 </form>
-                <!-- Drop-down for algorithms -->
-                <!-- <form action="{{url_for("uploader")}}" method="POST" id="contact" enctype="multipart/form-data">
-                    <h5>Denoising Technique</h5>
-                <label for="algos">Technique:</label>
-                    <select id="algos" name="algos">
-                        <option value="mf">Median Filtering</option>
-                        <option value="ed">Edge Detection</option>
-                        <option value="at">Adaptive Thresholding</option>
-                        <option value="ae">Autoencoder</option>
-                    </select>
-                    <button type="submit" class="btn" id="contact-submit">Reparo </button>
-                    <button type="submit" class="btn" id="contact-submit" onclick="runTest()">Test </button>
-                </form> -->
             </div>
         </div>
     </div>
@@ -111,10 +116,11 @@
     <footer class="page-footer font-small teal pt-4">
     
         <!-- Copyright -->
-        <div class="footer-copyright text-center py-3"><h6>© 2020 Copyright: <a href="https://mdbootstrap.com/" style="color:#737373;">BitsPlease</h6></a>
+        <div class="footer-copyright text-center py-3"><h6>© 2020 Copyright: <a href="https://github.com/gandalf1819/Denoise-docs-CV" style="color:#737373;">BitsPlease</h6></a>
         </div>
         <!-- Copyright -->
     </footer>
     <!-- Footer -->
+   
 </body>
 </html>

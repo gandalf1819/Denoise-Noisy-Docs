@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Denoizer | Edge Filtering</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="../static/style.css" /> -->
     <link href="static/style.css" rel="stylesheet" type="text/css" media="all">
@@ -52,20 +52,23 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#"><h6 small>Home</h6 small><span class="sr-only">(current)</span></a>
-            </li>
+            <a class="nav-link" href="#"><h6>Home</h6></a>
             <li class="nav-item">
               <a class="nav-link" href="#"><h6>Median Filtering</h6></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><h6>Edge Detection</h6></a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><h6>Edge Detection</h6><span class="sr-only">(current)</span></a>
+                </li>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><h6>Adaptive Thresholding</h6></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><h6>Autoencoder</h6></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><h6>Regression</h6></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#"></a>
@@ -77,32 +80,37 @@
         </div>
     </nav>
 
-    <!-- Main Body -->
+    <!-- Main Body for Edge Filtering -->
     <div class="frame">
-        <div class="center">
-    
+        <div class="center">  
+
+            <!-- Edge Filtering Description -->
+            <p class="tab"><h4><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Edge Detection, Dilation and Erosion</b></h4></p>
+            <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Edge detection methods identify the points where the image brightness changes sharply, to organize them into edges. Canny edge detection 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; is particularly helpful to extract edges. <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Before using the techiques, the images were processed to be cleaned away from the edges of noise. Apply dilation, which makes <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lines thicker by adding pixels to boundaries.
+                Notice this results in “filling in” the text, while edges surrounding stains remain hollow. <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- By applying the reverse operation - erosion, one can completely remove thin lines while preserving the thicker lines. <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- RMSE, UQI & PSNR were 63, 94 and 12 respectively
+                </h5></p>
+
             <div class="container">
                 <!-- Upload image-->
-                <form action="{{url_for("uploader")}}" method="POST" id="contact" enctype="multipart/form-data">
-                    <h5><b>Upload the image for denoising</b></h5>
-                    <h4>Get the cleaned version of your doc in no time!</h4>
+                <form action="{{url_for("edge")}}" method="POST" id="contact" enctype="multipart/form-data" width="600px" height="1000px">
+                    <h5><b>Image Denoising Techniques</b></h5>
+                    <h6 small><b>Edge Filtering:</b></h6 small>
+                    <!-- Input image for edge filtering -->
+                    <h6>Select input image:</h6><br>
+                    <input type="file" name="img" class="btn" /><br>   
+                    <button type="submit" class="btn btn-primary btn-xs" id="contact-submit">Upload </button>
+                    <br>
+                    <!-- Display result -->
+                    <h6>Cleaned Image</h6>
+                    <!-- <img src="{{ user_image }}" alt="User Image"> -->
                     
-                    <input type="file" name="img" class="btn" />   
-                    <button type="submit" class="btn" id="contact-submit">Upload </button>
+                    <button type="submit" class="btn" id="contact-submit" onclick="runTest()">View </button>
                 </form>
-                <!-- Drop-down for algorithms -->
-                <!-- <form action="{{url_for("uploader")}}" method="POST" id="contact" enctype="multipart/form-data">
-                    <h5>Denoising Technique</h5>
-                <label for="algos">Technique:</label>
-                    <select id="algos" name="algos">
-                        <option value="mf">Median Filtering</option>
-                        <option value="ed">Edge Detection</option>
-                        <option value="at">Adaptive Thresholding</option>
-                        <option value="ae">Autoencoder</option>
-                    </select>
-                    <button type="submit" class="btn" id="contact-submit">Reparo </button>
-                    <button type="submit" class="btn" id="contact-submit" onclick="runTest()">Test </button>
-                </form> -->
             </div>
         </div>
     </div>
@@ -111,10 +119,11 @@
     <footer class="page-footer font-small teal pt-4">
     
         <!-- Copyright -->
-        <div class="footer-copyright text-center py-3"><h6>© 2020 Copyright: <a href="https://mdbootstrap.com/" style="color:#737373;">BitsPlease</h6></a>
+        <div class="footer-copyright text-center py-3"><h6>© 2020 Copyright: <a href="https://github.com/gandalf1819/Denoise-docs-CV" style="color:#737373;">BitsPlease</h6></a>
         </div>
         <!-- Copyright -->
     </footer>
     <!-- Footer -->
+   
 </body>
 </html>

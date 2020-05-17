@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Denoizer | Autoencoder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="../static/style.css" /> -->
+    <link href="static/style.css" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Bootstrap Headers -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link href="static/style.css" rel="stylesheet" type="text/css" media="all">
+    
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Toastr headers  -->
+    {{ toastr.include_jquery() }}
+    {{ toastr.include_toastr_css() }}
+    {{ toastr.message() }}
+    <!-- AJAX test script -->
+    <script>
+        function runTest(){
+            $.ajax({
+              url: "../test.py",
+             context: document.body
+            }).done(function() {
+             alert('finished test script!');;
+            });
+        }
+    </script>
+</head>
+<style>
+    body {
+        background: #353a40;
+    }
+    </style>
+<body>
+    {{ toastr.include_toastr_js() }}
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"><h5><b>Denoizer</b></h5></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+              <a class="nav-link" href="#"><h6>Home</h6></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><h6>Median Filtering</h6></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><h6>Edge Detection</h6></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><h6>Adaptive Thresholding</h6></a>
+            </li>
+            <li class="nav-item">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><h6>Autoencoder</h6><span class="sr-only">(current)</span></a>
+                </li>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><h6>Regression</h6></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>
+          </ul>
+          <span class="navbar-text">
+            Denoising Noisy Docs
+          </span>
+        </div>
+    </nav>
+
+    <!-- Main Body for Autoencoder -->
+    <div class="frame">
+        <div class="center">                
+            
+            <!-- Autoencoder Description -->
+            <p class="tab"><h4><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Autoencoder</b></h4></p>
+            <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Autoencoders are neural networks composed of an encoder and a decoder. The encoder compresses the input data into a  <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower-dimensional representation. The decoder reconstructs the representation to obtain an output that mimics the input as closely as possible. <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- The network is composed of <b>5 convolutional layers</b> to extract meaningful features from images. In the first four convolutions, we use <b>64 kernels.</b> <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In the first convolution, each kernel has dimension <b>3x3x1</b>, while in the next ones, the kernels are of dimension 3x3x64 <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in order to convolve every channel. The last convolution uses a single <b>3x3x64 kernel</b> to give the single-channel output.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - To contain non-linearity in our model, the result of the convolution is passed through <b>'Leaky ReLU activation function.</b> <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Batch normalization layers are included to improve the speed, performance, and stability of the model. <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- RMSE and UQI are approximately 234.26, 6.066 respectively
+                </h5></p>
+            
+            <div class="container">
+                <!-- Upload image-->
+                <form action="{{url_for("autoencoder")}}" method="POST" id="contact" enctype="multipart/form-data" width="600px" height="1000px">
+                    <h5><b>Neural Nets</b></h5>
+                    <h6 small><b>Autoencoder:</b></h6 small>
+                    <!-- Input image for autoencoder-->
+                    <h6>Select input image:</h6><br>
+                    <input type="file" name="img" class="btn" /><br>   
+                    <button type="submit" class="btn btn-primary btn-xs" id="contact-submit">Upload </button>
+                    <br>
+                    <!-- Display result -->
+                    <h6>Cleaned Image</h6>
+                    <!-- <img src="{{ user_image }}" alt="User Image"> -->
+                    
+                    <button type="submit" class="btn" id="contact-submit" onclick="runTest()">View </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small teal pt-4">
+    
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3"><h6>© 2020 Copyright: <a href="https://github.com/gandalf1819/Denoise-docs-CV" style="color:#737373;">BitsPlease</h6></a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+   
+</body>
+</html>

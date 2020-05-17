@@ -13,12 +13,6 @@ from sewar.full_ref import uqi, psnr, rmse, ssim
 sns.set()
 from scipy import signal
 # %matplotlib inline
-
-def median_subtract(noisy_img, ksize=23):
-    background=cv2.medianBlur(noisy_img, ksize)
-    result=cv2.subtract(background, noisy_img)
-    result=cv2.bitwise_not(result)
-    return (result, background)
     
 # Use boto3 for aws config
 # client = boto3.client('s3')
@@ -38,70 +32,82 @@ dirty_img=[cv2.imread(x, cv2.IMREAD_GRAYSCALE) for x in img_paths]
 
 # Compute median filtering
 denoised=cleaned_img[-1]
-result, background=median_subtract(dirty_img[-1])
 
-rmsse = 1 
+# Median Filtering Logic 
+def median_subtract(noisy_img, ksize=23):
+    background=cv2.medianBlur(noisy_img, ksize)
+    result=cv2.subtract(background, noisy_img)
+    result=cv2.bitwise_not(result)
+    return (result, background)
+
+# Peform median filtering over dirty image 
+result, background = median_subtract(dirty_img[-1])
 
 # Compute RMSE
-print("RMSE: ", rmse(denoised, result))
+m_rmse = rmse(denoised, result)
+# print("RMSE: ", m_rmse)
 
 # Compute UQI
-print("UQI: ", uqi(denoised,result))
+m_uqi = uqi(denoised,result)
+# print("UQI: ", m_uqi)
 
 # Compute PSNR
-print("PSNR: ", psnr(denoised, result))
+m_psnr = psnr(denoised, result)
+# print("PSNR: ", m_psnr)
 
 # Compute SSIM
-print("SSIM:", ssim(denoised, result))
+m_ssim = ssim(denoised, result)
+# print("SSIM:", m_ssim)
 
+## Visualize the output
 # Observe the output
-plt.rcParams["axes.grid"] = False
-fig, axarr= plt.subplots(2,2, figsize=(15,15))
-axarr[0,0].imshow(denoised, cmap='gray')
-axarr[0,1].imshow(dirty_img[-1], cmap='gray')
-axarr[1,0].imshow(background, cmap='gray')
-axarr[1,1].imshow(result, cmap='gray')
+# plt.rcParams["axes.grid"] = False
+# fig, axarr= plt.subplots(2,2, figsize=(15,15))
+# axarr[0,0].imshow(denoised, cmap='gray')
+# axarr[0,1].imshow(dirty_img[-1], cmap='gray')
+# axarr[1,0].imshow(background, cmap='gray')
+# axarr[1,1].imshow(result, cmap='gray')
 
-# Visualize the cleaned image
-font = {'family': 'serif',
-    'color':  'darkred',
-    'weight': 'normal',
-    'size': 16,
-}
-plt.rcParams["axes.grid"] = False
-fig=plt.figure(figsize=(12,8))
-plt.imshow(denoised, cmap='gray')
-plt.title('Clean Image', fontdict=font)
+# # Visualize the cleaned image
+# font = {'family': 'serif',
+#     'color':  'darkred',
+#     'weight': 'normal',
+#     'size': 16,
+# }
+# plt.rcParams["axes.grid"] = False
+# fig=plt.figure(figsize=(12,8))
+# plt.imshow(denoised, cmap='gray')
+# plt.title('Clean Image', fontdict=font)
 
-# Visualize the dirty image
-font = {'family': 'serif',
-    'color':  'darkred',
-    'weight': 'normal',
-    'size': 16,
-}
-plt.rcParams["axes.grid"] = False
-fig=plt.figure(figsize=(12,8))
-plt.imshow(dirty_img[-1], cmap='gray')
-plt.title('Dirty Image', fontdict=font)
+# # Visualize the dirty image
+# font = {'family': 'serif',
+#     'color':  'darkred',
+#     'weight': 'normal',
+#     'size': 16,
+# }
+# plt.rcParams["axes.grid"] = False
+# fig=plt.figure(figsize=(12,8))
+# plt.imshow(dirty_img[-1], cmap='gray')
+# plt.title('Dirty Image', fontdict=font)
 
-# Calculate Background using Median Filter
-font = {'family': 'serif',
-    'color':  'darkred',
-    'weight': 'normal',
-    'size': 16,
-}
-plt.rcParams["axes.grid"] = False
-fig=plt.figure(figsize=(12,8))
-plt.imshow(background, cmap='gray')
-plt.title('Calculated Background using Median Filter', fontdict=font)
+# # Calculate Background using Median Filter
+# font = {'family': 'serif',
+#     'color':  'darkred',
+#     'weight': 'normal',
+#     'size': 16,
+# }
+# plt.rcParams["axes.grid"] = False
+# fig=plt.figure(figsize=(12,8))
+# plt.imshow(background, cmap='gray')
+# plt.title('Calculated Background using Median Filter', fontdict=font)
 
-# Visualize the result
-font = {'family': 'serif',
-    'color':  'darkred',
-    'weight': 'normal',
-    'size': 16,
-}
-plt.rcParams["axes.grid"] = False
-fig=plt.figure(figsize=(12,8))
-plt.imshow(result, cmap='gray')
-plt.title('Result (after subtracting background from OG image)', fontdict=font)
+# # Visualize the result
+# font = {'family': 'serif',
+#     'color':  'darkred',
+#     'weight': 'normal',
+#     'size': 16,
+# }
+# plt.rcParams["axes.grid"] = False
+# fig=plt.figure(figsize=(12,8))
+# plt.imshow(result, cmap='gray')
+# plt.title('Result (after subtracting background from OG image)', fontdict=font)

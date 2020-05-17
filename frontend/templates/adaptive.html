@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Denoizer | Autoencoder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="../static/style.css" /> -->
     <link href="static/style.css" rel="stylesheet" type="text/css" media="all">
@@ -52,8 +52,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#"><h6 small>Home</h6 small><span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="#"><h6>Home</h6></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#"><h6>Median Filtering</h6></a>
@@ -62,10 +61,15 @@
                 <a class="nav-link" href="#"><h6>Edge Detection</h6></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><h6>Adaptive Thresholding</h6></a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><h6>Adaptive Thresholding</h6><span class="sr-only">(current)</span></a>
+                </li>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><h6>Autoencoder</h6></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><h6>Regression</h6></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#"></a>
@@ -77,32 +81,36 @@
         </div>
     </nav>
 
-    <!-- Main Body -->
+    <!-- Main Body for Adaptive Thresholding -->
     <div class="frame">
-        <div class="center">
-    
+        <div class="center">                
+            
+            <!-- Adaptive Thresholding Description -->
+            <p class="tab"><h4><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adaptive Thresholding</b></h4></p>
+            <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Another characteristic of the dirty images is that the text tends to be darker than the noise. Within dark noises, the text inside is even darker. <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Thus, the objective is to preserve pixels that are the darkest locally. <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Thresholding sets all pixels whose intensity is above a threshold to 1 (background), and the remaining pixels to 0 (foreground). <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; During adaptive thresholding, there is no single global threshold: the threshold value is computed for each pixel. To determine the threshold,<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; we use Gaussian Thresholding. The threshold value is the weighted sum of neighboring pixel intensities, where the weights are a gaussian window. <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- RMSE, UQI & PSNR were 30, 98 & 18 respectively
+                </h5></p>
+
             <div class="container">
                 <!-- Upload image-->
-                <form action="{{url_for("uploader")}}" method="POST" id="contact" enctype="multipart/form-data">
-                    <h5><b>Upload the image for denoising</b></h5>
-                    <h4>Get the cleaned version of your doc in no time!</h4>
+                <form action="{{url_for("adaptive")}}" method="POST" id="contact" enctype="multipart/form-data" width="600px" height="1000px">
+                    <h5><b>Image Denoising Techniques</b></h5>
+                    <h6 small><b>Adaptive Thresholding:</b></h6 small>
+                    <!-- Input image for Adaptive Thresholding -->
+                    <h6>Select input image:</h6><br>
+                    <input type="file" name="img" class="btn" /><br>   
+                    <button type="submit" class="btn btn-primary btn-xs" id="contact-submit">Upload </button>
+                    <br>
+                    <!-- Display result -->
+                    <h6>Cleaned Image</h6>
+                    <!-- <img src="{{ user_image }}" alt="User Image"> -->
                     
-                    <input type="file" name="img" class="btn" />   
-                    <button type="submit" class="btn" id="contact-submit">Upload </button>
+                    <button type="submit" class="btn" id="contact-submit" onclick="runTest()">View </button>
                 </form>
-                <!-- Drop-down for algorithms -->
-                <!-- <form action="{{url_for("uploader")}}" method="POST" id="contact" enctype="multipart/form-data">
-                    <h5>Denoising Technique</h5>
-                <label for="algos">Technique:</label>
-                    <select id="algos" name="algos">
-                        <option value="mf">Median Filtering</option>
-                        <option value="ed">Edge Detection</option>
-                        <option value="at">Adaptive Thresholding</option>
-                        <option value="ae">Autoencoder</option>
-                    </select>
-                    <button type="submit" class="btn" id="contact-submit">Reparo </button>
-                    <button type="submit" class="btn" id="contact-submit" onclick="runTest()">Test </button>
-                </form> -->
             </div>
         </div>
     </div>
@@ -111,10 +119,11 @@
     <footer class="page-footer font-small teal pt-4">
     
         <!-- Copyright -->
-        <div class="footer-copyright text-center py-3"><h6>© 2020 Copyright: <a href="https://mdbootstrap.com/" style="color:#737373;">BitsPlease</h6></a>
+        <div class="footer-copyright text-center py-3"><h6>© 2020 Copyright: <a href="https://github.com/gandalf1819/Denoise-docs-CV" style="color:#737373;">BitsPlease</h6></a>
         </div>
         <!-- Copyright -->
     </footer>
     <!-- Footer -->
+   
 </body>
 </html>
