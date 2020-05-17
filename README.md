@@ -70,7 +70,11 @@ Along with autoencoder, another machine learning technique we have used is **Lin
 
 #### Login Screen
 
-![login-1](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/login.png)
+|||
+:-------------------------:|:-------------------------:
+![Login](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/screens/login.png)  |  ![Median](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/screens/median-login.png)
+Login Screen  |  Median Filtering
+
 
 ## Data:
 
