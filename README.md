@@ -103,9 +103,10 @@ Along with autoencoder, another machine learning technique we have used is **Lin
 
 |||
 :-------------------------:|:-------------------------:
-![Login](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/screens/login.png)  |  ![Median](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/screens/median-login.png)
-Login Screen  |  Median Filtering
-
+![Login](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/screens/login.png)  |  ![Autoencoder](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/screens/autoencoder-input.png)
+Login Screen  |  Autoencoder
+![Median](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/screens/median-login.png)  |  ![Median-Results](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/screens/median-results.png)
+Median Filtering  |  Median Filtering Results
 
 ## Data:
 
