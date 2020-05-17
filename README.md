@@ -15,6 +15,37 @@ The encoder uses **max-pooling** for compression. A sliding filter runs over the
 
 **Batch normalization** reduces covariance shift, that is the difference in the distribution of the activations between layers, and allows each layer of the model to learn more independently of other layers.
 
+```
+Model: "model_1"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+image_input (InputLayer)     (None, 420, 540, 1)       0         
+_________________________________________________________________
+Conv1 (Conv2D)               (None, 420, 540, 32)      320       
+_________________________________________________________________
+pool1 (MaxPooling2D)         (None, 210, 270, 32)      0         
+_________________________________________________________________
+Conv2 (Conv2D)               (None, 210, 270, 64)      18496     
+_________________________________________________________________
+pool2 (MaxPooling2D)         (None, 105, 135, 64)      0         
+_________________________________________________________________
+Conv3 (Conv2D)               (None, 105, 135, 64)      36928     
+_________________________________________________________________
+upsample1 (UpSampling2D)     (None, 210, 270, 64)      0         
+_________________________________________________________________
+Conv4 (Conv2D)               (None, 210, 270, 32)      18464     
+_________________________________________________________________
+upsample2 (UpSampling2D)     (None, 420, 540, 32)      0         
+_________________________________________________________________
+Conv5 (Conv2D)               (None, 420, 540, 1)       289       
+=================================================================
+Total params: 74,497
+Trainable params: 74,497
+Non-trainable params: 0
+_________________________________________________________________
+```
+
 ## Regression
 
 Along with autoencoder, another machine learning technique we have used is **Linear Regression**. Instead of modelling the entire image at once, we tried predicting the cleaned-up intensity for each pixel within the image, and constructed a cleaned image by combining together a set of predicted pixel intensities using linear regression. Except at the extremes, there is a linear relationship between the brightness of the dirty images and the cleaned images. There is a broad spread of x values as y approaches 1, and these pixels probably represent stains that need to be removed.
