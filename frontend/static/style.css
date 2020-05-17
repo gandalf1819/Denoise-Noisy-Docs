@@ -14,7 +14,7 @@
 
 body {
   font-family: "Raleway", Helvetica, Arial, sans-serif;
-  background-image: url("img/login-background.jpg");
+  /* background-image: url("img/login-background.jpg"); */
   font-weight: 100;
   font-size: 12px;
   line-height: 30px;
@@ -29,6 +29,10 @@ body {
   position: relative;
 }
 
+p.tab {
+  margin-left: 60px; 
+}
+
 #contact input[type="text"],
 #contact input[type="email"],
 #contact input[type="password"],
@@ -41,6 +45,20 @@ body {
 
 #contact {
   background: #F9F9F9;
+  /* width: auto; */
+  /* max-width:100%;
+  max-height:100%; */
+  padding: 25px;
+  margin: 150px 0;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+#result {
+  background: #F9F9F9;
+  /* width: auto; */
+  width: 1000px;
+  /* max-width:100%;
+  max-height:100%; */
   padding: 25px;
   margin: 150px 0;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -103,7 +121,7 @@ fieldset {
   cursor: pointer;
   width: 100%;
   border: none;
-  background: #4CAF50;
+  background: #3498DB ;
   color: #FFF;
   margin: 0 0 5px;
   padding: 10px;
@@ -122,7 +140,7 @@ fieldset {
 }
 
 #contact button[type="submit"]:hover:enabled {
-  background: #43A047;
+  background: #3498DB ;
   -webkit-transition: background 0.3s ease-in-out;
   -moz-transition: background 0.3s ease-in-out;
   transition: background-color 0.3s ease-in-out;
