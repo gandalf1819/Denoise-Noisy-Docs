@@ -15,6 +15,12 @@ The encoder uses **max-pooling** for compression. A sliding filter runs over the
 
 **Batch normalization** reduces covariance shift, that is the difference in the distribution of the activations between layers, and allows each layer of the model to learn more independently of other layers.
 
+## Regression
+
+Along with autoencoder, another machine learning technique we have used is **Linear Regression**. Instead of modelling the entire image at once, we tried predicting the cleaned-up intensity for each pixel within the image, and constructed a cleaned image by combining together a set of predicted pixel intensities using linear regression. Except at the extremes, there is a linear relationship between the brightness of the dirty images and the cleaned images. There is a broad spread of x values as y approaches 1, and these pixels probably represent stains that need to be removed.
+
+![Regression-result](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/regression-results/reg-1.png)
+
 ## AWS architecture
 
 ![AWS Architecture](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/CV-architecture.png)
@@ -54,6 +60,11 @@ The encoder uses **max-pooling** for compression. A sliding filter runs over the
 |||
 :-------------------------:|:-------------------------:
 ![Noisy](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/autoencoder-results/noisy.png)  |  ![Trained-Clean](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/autoencoder-results/trained-cleaned.png)
+
+### Linear Regression
+|||
+:-------------------------:|:-------------------------:
+![Noisy](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/regression-results/reg-dirty.png)  |  ![Trained-Clean](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/regression-results/reg-noisy.png)
 
 ## Screens
 
