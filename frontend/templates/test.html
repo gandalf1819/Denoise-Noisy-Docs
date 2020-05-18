@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Denoizer | Median Filtering</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="../static/style.css" /> -->
+    <link href="static/style.css" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Bootstrap Headers -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link href="static/style.css" rel="stylesheet" type="text/css" media="all">
+    
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Toastr headers  -->
+    {{ toastr.include_jquery() }}
+    {{ toastr.include_toastr_css() }}
+    {{ toastr.message() }}
+    <!-- AJAX test script -->
+    <script>
+        function runTest(){
+            $.ajax({
+              url: "../test.py",
+             context: document.body
+            }).done(function() {
+             alert('finished test script!');;
+            });
+        }
+    </script>
+</head>
+<style>
+    body {
+        background: #353a40;
+    }
+    </style>
+<body>
+    {{ toastr.include_toastr_js() }}
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"><h5><b>Denoizer</b></h5></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+              <a class="nav-link" href="#"><h6>Home</h6></a>
+            <li class="nav-item">
+             <li class="nav-item active">
+              <a class="nav-link" href="#"><h6>Median Filtering</h6><span class="sr-only">(current)</span></a>
+              </li>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><h6>Edge Detection</h6></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><h6>Adaptive Thresholding</h6></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><h6>Autoencoder</h6></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><h6>Regression</h6></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>
+          </ul>
+          <span class="navbar-text">
+            Denoising Noisy Docs
+          </span>
+        </div>
+    </nav>
+
+    <!-- Main Body for Median Filtering -->
+    <div class="frame">
+        <div class="center">                
+            <!-- Median Filtering Description -->
+            <p class="tab"><h4><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Median Filtering</b></h4></p>
+            <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Median Filter of kernel size - 23 x 23 is used  to obtain the “background” of our image, while the text we want to preserve <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;was considered “foreground”. <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- The smoothing effect is to our advantage since the noise takes up more space than the text.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- After applying median filtering, we simply subtract the obtained “background” from the original image.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- RMSE, UQI, PSNR were approximately 21, 99 and 21 respectively
+                </h5></p>
+
+            <div class="result" id="result">
+                <h5>Median Filtering Results:</h5>
+                {% for hist in hists %}
+                <!-- <img src="{{url_for('static', filename='{{hist}}')}}" alt="{{hist}}"> -->
+                <img src="static/{{hist}}" alt="{{hist}}" width="400px" height="320px">
+                {% endfor %}
+            </div>
+
+            <div class="container">
+
+                
+
+                <!-- Upload image-->
+                <!-- <form action="{{url_for("test")}}" method="POST" id="result" enctype="multipart/form-data" width="600px" height="1000px">
+                    <h5><b>Supervised Learning</b></h5>
+                    <h6 small><b>Regression:</b></h6 small> -->
+                    <!-- Input image for regression -->
+                    <!-- <h6>Select input image:</h6><br>
+                    <input type="file" name="img" class="btn" /><br>   
+                    <button type="submit" class="btn btn-primary btn-xs" id="contact-submit">Upload </button>
+                    <br> -->
+                    <!-- Display result -->
+                    <!-- <h6>Cleaned Image</h6>
+                    <img src="{{ user_image }}" alt="User Image">
+                    
+                    <button type="submit" class="btn" id="contact-submit" onclick="runTest()">View </button>
+                </form>
+            </div> -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small teal pt-4">
+    
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3"><h6>© 2020 Copyright: <a href="https://github.com/gandalf1819/Denoise-docs-CV" style="color:#737373;">BitsPlease</h6></a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+   
+</body>
+</html>

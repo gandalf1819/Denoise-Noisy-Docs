@@ -168,8 +168,14 @@ def regression():
 @app.route('/test', methods=['POST', 'GET'])
 def test():
 
-    flash('Toastr works')
-    return render_template('test.html')
+    flash('Denoizer is cleaning')
+    # Display the results of median filtering in flask app
+    hists = os.listdir('static/results/median-results')
+    hists = ['results/median-results/' + file for file in hists]
+    return render_template('test.html', hists = hists)
+
+    # image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'clean.png')
+    # return render_template('test.html', user_image = image_path)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
