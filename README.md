@@ -7,7 +7,7 @@ Numerous scientific papers, historical documentaries/artifacts, recipes, books a
 
 ## Autoencoder architecture
 
-![Autoencoder architecture](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/Autoencoder.png)
+![Autoencoder architecture](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/results/Autoencoder-pipeline.png)
 
 The network is composed of **5 convolutional layers** to extract meaningful features from images. In the first four convolutions, we use **64 kernels**. Each kernel has different weights, perform different convolutions on the input layer, and produce a different feature map. Each output of the convolution, therefore, is composed of 64 channels. 
 
