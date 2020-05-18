@@ -1,7 +1,7 @@
 # Denoising Noisy Documents
 
 ![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)
-![PyPI pyversions](https://img.shields.io/pypi/pyversions/ansicolortags.svg)
+![Python](https://upload.wikimedia.org/wikipedia/commons/3/34/Blue_Python_3.6_Shield_Badge.svg)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
 
 
