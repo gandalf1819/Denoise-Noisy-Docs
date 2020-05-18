@@ -108,6 +108,29 @@ Login Screen  |  Autoencoder
 ![Median](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/screens/median-login.png)  |  ![Median-Results](https://github.com/gandalf1819/Denoise-docs-CV/blob/master/screens/median-results.png)
 Median Filtering  |  Median Filtering Results
 
+## Project Schema
+
+Directory structure for Denoizer repository:
+
+```
+|-- dataset
+ |-- test.zip → test image dataset
+	|-- train.zip → training image dataset containing noisy dataset
+	|-- train_cleaned.zip → cleaned images for respective noisy images in train.zip
+|-- frontend
+	|-- static → CSS, JS for flask web app 
+	|-- templates → HTML pages for flask web app
+|-- reports → collection of reports submitted on this project
+|-- results → resultant images for each technique 
+	|-- adaptive-results
+	|-- autoencoder-results
+	|-- edge-detection-results
+	|-- median-results
+	|-- regression-results
+|-- screens → screenshot/snippets  for each tab/page on webapp
+```
+
+
 ## Data:
 
 Our data is collected from UCI's machine learning repository. The dataset comprises of train and test images of Noisy documents which contain noise from various sources like accidental spills, creases, ink spots and so on. 
